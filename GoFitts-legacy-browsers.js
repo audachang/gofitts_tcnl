@@ -463,6 +463,7 @@ function waitingRoutineEnd() {
 }
 
 
+var targets;
 var gotValidClick;
 var _key_resp_2_allKeys;
 var trialComponents;
@@ -479,6 +480,7 @@ function trialRoutineBegin(snapshot) {
     mouse.getPos();
     [target_a, target_w] = parameters.pop();
     
+    targets = []
     for (var i, _pj_c = 0, _pj_a = util.range(target_c), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         i = _pj_a[_pj_c];
         let x = ((target_a / 2) * Math.cos(((2.0 * pi) * (i / target_c))));

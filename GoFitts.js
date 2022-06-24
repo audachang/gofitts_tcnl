@@ -33,10 +33,10 @@ var target_w = 0
 var target_a = 0
 
 
-function is_in_target(w, x, y) {
+function is_in_target(x, y) {
     var tx, ty;
     [tx, ty] = targets[target_order[current_target]].pos;
-    return ((Math.pow((x - tx), 2) + Math.pow((y - ty), 2)) <= Math.pow(w, 2));
+    return ((Math.pow((x - tx), 2) + Math.pow((y - ty), 2)) <= Math.pow(target_w, 2));
 }
 
 for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {

@@ -538,7 +538,7 @@ function trialRoutineEachFrame() {
     // update/draw components on each frame
     for (var idx, _pj_c = 0, _pj_a = util.range(targets.length), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         idx = _pj_a[_pj_c];
-        target = targets[idx];
+        let target = targets[idx];
         if ((idx === target_order[current_target])) {
             target.fillColor = HIGHLIGHT_COLOR;
         } else {

@@ -21,6 +21,13 @@ var targets = [];
 var target_order = [];
 var current_target = 0;
 
+
+function is_in_target(x, y) {
+    var tx, ty;
+    [tx, ty] = targets[target_order[current_target]].pos;
+    return ((Math.pow((x - tx), 2) + Math.pow((y - ty), 2)) <= Math.pow(target_w, 2));
+}
+
 for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
     a = _pj_a[_pj_c];
     for (var w, _pj_f = 0, _pj_d = param_w, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
@@ -490,11 +497,6 @@ function trialRoutineBegin(snapshot) {
     }
     
     console.log(target_order);
-    function is_in_target(x, y) {
-        var tx, ty;
-        [tx, ty] = targets[target_order[current_target]].pos;
-        return ((Math.pow((x - tx), 2) + Math.pow((y - ty), 2)) <= Math.pow(target_w, 2));
-    }
     
     // setup some python lists for storing info about the mouse
     // current position of the mouse:

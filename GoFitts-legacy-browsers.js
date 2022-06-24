@@ -16,6 +16,10 @@ const target_c = 15;
 const param_w = [20, 40];
 const param_a = [200, 400];
 const parameters = [];
+
+var targets = [];
+var current_target = 0;
+
 for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
     a = _pj_a[_pj_c];
     for (var w, _pj_f = 0, _pj_d = param_w, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
@@ -463,7 +467,6 @@ function trialRoutineBegin(snapshot) {
     // update component parameters for each repeat
     mouse.getPos();
     const [target_a, target_w] = parameters.pop();
-    var targets = [];
     for (var i, _pj_c = 0, _pj_a = util.range(target_c), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         i = _pj_a[_pj_c];
         let x = ((target_a / 2) * Math.cos(((2.0 * pi) * (i / target_c))));
@@ -471,7 +474,7 @@ function trialRoutineBegin(snapshot) {
         let target = new visual.Polygon({"win": psychoJS.window, "size": target_w, "pos": [x, y], "fillColor": "white", "lineWidth": 2, "lineColor": LINE_COLOR, "edges": 100});
         targets.push(target);
     }
-    var current_target = 0;
+    
     const target_order = [];
     let start = util.randint(0, (target_c - 1));
     const interval = Number.parseInt(((target_c + 1) / 2));

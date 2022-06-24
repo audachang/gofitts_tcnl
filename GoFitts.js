@@ -471,9 +471,9 @@ function trialRoutineBegin(snapshot) {
     const targets = [];
     for (var i, _pj_c = 0, _pj_a = util.range(target_c), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         i = _pj_a[_pj_c];
-        x = ((target_a / 2) * Math.cos(((2.0 * pi) * (i / target_c))));
-        y = ((target_a / 2) * Math.sin(((2.0 * pi) * (i / target_c))));
-        target = new visual.Circle({"win": psychoJS.window, "size": target_w, "pos": [x, y], "fillColor": "white", "lineWidth": 2, "lineColor": LINE_COLOR});
+        let x = ((target_a / 2) * Math.cos(((2.0 * pi) * (i / target_c))));
+        let y = ((target_a / 2) * Math.sin(((2.0 * pi) * (i / target_c))));
+        let target = new visual.Circle({"win": psychoJS.window, "size": target_w, "pos": [x, y], "fillColor": "white", "lineWidth": 2, "lineColor": LINE_COLOR});
         targets.push(target);
     }
     let current_target = 0;

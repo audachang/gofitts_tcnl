@@ -26,6 +26,7 @@ const param_a = [200, 400];
 const parameters = [];
 
 var targets = [];
+var target_order = [];
 var current_target = 0;
 
 for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
@@ -480,7 +481,6 @@ function trialRoutineBegin(snapshot) {
         targets.push(target);
     }
     
-    const target_order = [];
     let start = util.randint(0, (target_c - 1));
     const interval = Number.parseInt(((target_c + 1) / 2));
     let idx = 0;

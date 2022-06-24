@@ -80,6 +80,8 @@ psychoJS.start({
 
 psychoJS.experimentLogger.setLevel(core.Logger.ServerLevel.EXP);
 
+
+var frameDur;
 async function updateInfo() {
   expInfo['date'] = util.MonotonicClock.getDateStr();  // add a simple timestamp
   expInfo['expName'] = expName;
@@ -101,6 +103,18 @@ async function updateInfo() {
   return Scheduler.Event.NEXT;
 }
 
+
+var initClock;
+var text;
+var key_resp;
+var waitingClock;
+var text_2;
+var key_resp_3;
+var trialClock;
+var mouse;
+var key_resp_2;
+var globalClock;
+var routineTimer;
 async function experimentInit() {
   // Initialize components for Routine "init"
   initClock = new util.Clock();
@@ -147,6 +161,12 @@ async function experimentInit() {
   return Scheduler.Event.NEXT;
 }
 
+
+var t;
+var frameN;
+var continueRoutine;
+var _key_resp_allKeys;
+var initComponents;
 function initRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -171,6 +191,7 @@ function initRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
+
 
 function initRoutineEachFrame() {
   return async function () {
@@ -239,6 +260,7 @@ function initRoutineEachFrame() {
   };
 }
 
+
 function initRoutineEnd() {
   return async function () {
     //------Ending Routine 'init'-------
@@ -265,6 +287,9 @@ function initRoutineEnd() {
   };
 }
 
+
+var trialLoop;
+var currentLoop;
 function trialLoopLoopBegin(trialLoopLoopScheduler, snapshot) {
   return async function() {
     TrialHandler.fromSnapshot(snapshot); // update internal variables (.thisN etc) of the loop
@@ -297,12 +322,16 @@ function trialLoopLoopBegin(trialLoopLoopScheduler, snapshot) {
   }
 }
 
+
 async function trialLoopLoopEnd() {
   psychoJS.experiment.removeLoop(trialLoop);
 
   return Scheduler.Event.NEXT;
 }
 
+
+var _key_resp_3_allKeys;
+var waitingComponents;
 function waitingRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -327,6 +356,7 @@ function waitingRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
+
 
 function waitingRoutineEachFrame() {
   return async function () {
@@ -395,6 +425,7 @@ function waitingRoutineEachFrame() {
   };
 }
 
+
 function waitingRoutineEnd() {
   return async function () {
     //------Ending Routine 'waiting'-------
@@ -421,6 +452,10 @@ function waitingRoutineEnd() {
   };
 }
 
+
+var gotValidClick;
+var _key_resp_2_allKeys;
+var trialComponents;
 function trialRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -438,7 +473,7 @@ function trialRoutineBegin(snapshot) {
         i = _pj_a[_pj_c];
         let x = ((target_a / 2) * Math.cos(((2.0 * pi) * (i / target_c))));
         let y = ((target_a / 2) * Math.sin(((2.0 * pi) * (i / target_c))));
-        let target = new visual.Polygon({"win": psychoJS.window, "size": target_w, "pos": [x, y], "fillColor": "white", "lineWidth": 2, "lineColor": LINE_COLOR, edges=100});
+        let target = new visual.Polygon({"win": psychoJS.window, "size": target_w, "pos": [x, y], "fillColor": "white", "lineWidth": 2, "lineColor": LINE_COLOR, "edges": 100});
         targets.push(target);
     }
     let current_target = 0;
@@ -487,6 +522,10 @@ function trialRoutineBegin(snapshot) {
   }
 }
 
+
+var prevButtonState;
+var _mouseButtons;
+var _mouseXYs;
 function trialRoutineEachFrame() {
   return async function () {
     //------Loop for each frame of Routine 'trial'-------
@@ -584,6 +623,7 @@ function trialRoutineEachFrame() {
   };
 }
 
+
 function trialRoutineEnd() {
   return async function () {
     //------Ending Routine 'trial'-------
@@ -618,6 +658,7 @@ function trialRoutineEnd() {
   };
 }
 
+
 function endLoopIteration(scheduler, snapshot) {
   // ------Prepare for next entry------
   return async function () {
@@ -640,12 +681,14 @@ function endLoopIteration(scheduler, snapshot) {
   };
 }
 
+
 function importConditions(currentLoop) {
   return async function () {
     psychoJS.importAttributes(currentLoop.getCurrentTrial());
     return Scheduler.Event.NEXT;
     };
 }
+
 
 async function quitPsychoJS(message, isCompleted) {
   // Check for and save orphaned data

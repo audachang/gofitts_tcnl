@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.1.4),
-    on 六月 25, 2022, at 01:19
+    on 六月 25, 2022, at 01:40
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -434,7 +434,6 @@ for thisTrialLoop in trialLoop:
         if mouse.mouseMoved():
             x, y = mouse.getPos()
             if is_in_target(x, y):
-                print(x, y)
                 current_target += 1
                 if current_target == target_c:
                     continueRoutine = False

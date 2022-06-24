@@ -453,12 +453,6 @@ function waitingRoutineEnd() {
 }
 
 
-var targets;
-var current_target;
-var target_order;
-var start;
-var interval;
-var idx;
 var gotValidClick;
 var _key_resp_2_allKeys;
 var trialComponents;
@@ -473,8 +467,8 @@ function trialRoutineBegin(snapshot) {
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
     mouse.getPos();
-    [target_a, target_w] = parameters.pop();
-    targets = [];
+    const [target_a, target_w] = parameters.pop();
+    const targets = [];
     for (var i, _pj_c = 0, _pj_a = util.range(target_c), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         i = _pj_a[_pj_c];
         x = ((target_a / 2) * Math.cos(((2.0 * pi) * (i / target_c))));
@@ -482,11 +476,11 @@ function trialRoutineBegin(snapshot) {
         target = new visual.Circle({"win": psychoJS.window, "size": target_w, "pos": [x, y], "fillColor": "white", "lineWidth": 2, "lineColor": LINE_COLOR});
         targets.push(target);
     }
-    current_target = 0;
-    target_order = [];
-    start = util.randint(0, (target_c - 1));
-    interval = Number.parseInt(((target_c + 1) / 2));
-    idx = 0;
+    let current_target = 0;
+    const target_order = [];
+    let start = util.randint(0, (target_c - 1));
+    const interval = Number.parseInt(((target_c + 1) / 2));
+    let idx = 0;
     while ((idx < target_c)) {
         target_order.push((start % target_c));
         idx += 1;
@@ -496,6 +490,7 @@ function trialRoutineBegin(snapshot) {
         }
         start += 1;
     }
+    
     console.log(target_order);
     function is_in_target(x, y) {
         var tx, ty;
@@ -549,7 +544,7 @@ function trialRoutineEachFrame() {
         target.draw();
     }
     if (mouse.mouseMoved()) {
-        [x, y] = mouse.getPos();
+        let [x, y] = mouse.getPos();
         if (is_in_target(x, y)) {
             current_target += 1;
             if ((current_target === target_c)) {

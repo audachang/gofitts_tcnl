@@ -1,0 +1,24 @@
+1.1202 	WARNING 	We strongly recommend you activate the PTB sound engine in PsychoPy prefs as the preferred audio engine. Its timing is vastly superior. Your prefs are currently set to use ['sounddevice', 'PTB', 'pyo', 'pygame'] (in that order).
+7.7346 	WARNING 	User requested fullscreen with size [1536  864], but screen is actually [1920, 1080]. Using actual size
+8.5830 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([1., 1., 1.]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x00000214C6746B20>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x00000214C9381580>, multiSample=False, name='window1', numSamples=2, pos=(-1920, 0), screen=0, size=array([1920, 1080]), stencilBits=0, stereo=False, units='pix', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+8.5833 	EXP 	window1: mouseVisible = True
+8.5833 	EXP 	window1: Attempting to measure frame rate of screen (0) ...
+8.5834 	EXP 	window1: recordFrameIntervals = False
+8.7490 	EXP 	window1: recordFrameIntervals = True
+8.9344 	EXP 	Screen (0) actual frame rate measured at 59.40Hz
+8.9344 	EXP 	window1: recordFrameIntervals = False
+10.6719 	EXP 	Created text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([-1., -1., -1.]), colorSpace='rgb', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Open Sans', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='text', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='pix', win=Window(...), wrapWidth=500)
+10.6754 	EXP 	Created text_2 = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([-1., -1., -1.]), colorSpace='rgb', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Open Sans', fontFiles=[], height=50.0, italic=False, languageStyle='LTR', name='text_2', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text='Press Enter to continue', units='pix', win=Window(...), wrapWidth=500)
+10.6755 	EXP 	window1: mouseVisible = True
+10.6808 	EXP 	text: autoDraw = True
+11.9869 	DATA 	Mouse: Left button down, pos=(1223,640)
+12.0841 	DATA 	Mouse:  Left button up, pos=(1223,640)
+13.3672 	DATA 	Mouse: Left button down, pos=(1326,518)
+13.4678 	DATA 	Mouse:  Left button up, pos=(1326,518)
+15.2669 	EXP 	Created sequence: sequential, trialTypes=1, nReps=4, seed=None
+15.2671 	EXP 	New trial (rep=0, index=0): None
+15.2818 	EXP 	text: autoDraw = False
+15.2818 	EXP 	text_2: autoDraw = True
+15.2838 	DATA 	Keypress: return
+20.3673 	DATA 	Keypress: escape
+21.0586 	EXP 	window1: mouseVisible = True

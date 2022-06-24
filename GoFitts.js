@@ -16,13 +16,14 @@ let expName = 'GoFitts';  // from the Builder filename that created this script
 let expInfo = {'participant': '', 'session': '001'};
 
 // Start code blocks for 'Before Experiment'
-HIGHLIGHT_COLOR = "#CCCCFF";
-NORMAL_COLOR = "#FFFFFF";
-LINE_COLOR = "#6A6A6A";
-target_c = 15;
-param_w = [20, 40];
-param_a = [200, 400];
-parameters = [];
+const HIGHLIGHT_COLOR = "#CCCCFF";
+const NORMAL_COLOR = "#FFFFFF";
+const LINE_COLOR = "#6A6A6A";
+
+const target_c = 15;
+const param_w = [20, 40];
+const param_a = [200, 400];
+const parameters = [];
 for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
     a = _pj_a[_pj_c];
     for (var w, _pj_f = 0, _pj_d = param_w, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
@@ -31,7 +32,7 @@ for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _
     }
 }
 util.shuffle(parameters);
-n_reps = parameters.length;
+const n_reps = parameters.length;
 
 // init psychoJS:
 const psychoJS = new PsychoJS({

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.1.4),
-    on 六月 25, 2022, at 14:52
+    on 六月 25, 2022, at 15:02
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -46,6 +46,7 @@ target_w = 0
 target_a = 0
 
 def is_in_target(x, y):
+    if current_target == target_c: return False
     tx, ty = targets[target_order[current_target]].pos
     return (x - tx) ** 2 + (y - ty) ** 2 <= target_w ** 2
 

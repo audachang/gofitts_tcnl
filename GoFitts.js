@@ -34,6 +34,7 @@ var target_a = 0
 
 
 function is_in_target(x, y) {
+    if (current_target == target_c) return false;
     var tx, ty;
     [tx, ty] = targets[target_order[current_target]].pos;
     return ((Math.pow((x - tx), 2) + Math.pow((y - ty), 2)) <= Math.pow(target_w, 2));
@@ -512,7 +513,7 @@ function trialRoutineBegin(snapshot) {
     }
     
     console.log(target_order);
-    
+    console.log(targets);
     // setup some python lists for storing info about the mouse
     // current position of the mouse:
     mouse.x = [];

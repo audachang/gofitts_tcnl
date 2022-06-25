@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.1.4),
-    on 六月 25, 2022, at 15:02
+    on 六月 25, 2022, at 17:10
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -394,7 +394,9 @@ for thisTrialLoop in trialLoop:
             target_order.append((start + interval) % target_c)
             idx += 1
         start += 1
+    
     print(target_order)
+    print(targets)
     # setup some python lists for storing info about the mouse
     mouse.x = []
     mouse.y = []
@@ -429,20 +431,21 @@ for thisTrialLoop in trialLoop:
         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
-        for idx in range(len(targets)):
-            target = targets[idx]
-            if idx == target_order[current_target]:
-                target.fillColor = HIGHLIGHT_COLOR
-            else:
-                target.fillColor = NORMAL_COLOR
-            target.draw()
+        if current_target != target_c:
+            for idx in range(len(targets)):
+                target = targets[idx]
+                if idx == target_order[current_target]:
+                    target.fillColor = HIGHLIGHT_COLOR
+                else:
+                    target.fillColor = NORMAL_COLOR
+                target.draw()
         
-        if mouse.mouseMoved():
-            x, y = mouse.getPos()
-            if is_in_target(x, y):
-                current_target += 1
-                if current_target == target_c:
-                    continueRoutine = False
+            if mouse.mouseMoved():
+                x, y = mouse.getPos()
+                if is_in_target(x, y):
+                    current_target += 1
+                    if current_target == target_c:
+                        continueRoutine = False
         # *mouse* updates
         if mouse.status == NOT_STARTED and t >= 0.0-frameTolerance:
             # keep track of start time/frame for later

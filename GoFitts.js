@@ -488,7 +488,7 @@ function trialRoutineBegin(snapshot) {
     mouse.getPos();
     [target_a, target_w] = parameters.pop();
     
-    targets = []
+    targets = [];
     for (var i, _pj_c = 0, _pj_a = util.range(target_c), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         i = _pj_a[_pj_c];
         let x = ((target_a / 2) * Math.cos(((2.0 * pi) * (i / target_c))));
@@ -549,22 +549,24 @@ function trialRoutineEachFrame() {
     t = trialClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
-    for (var idx, _pj_c = 0, _pj_a = util.range(targets.length), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
-        idx = _pj_a[_pj_c];
-        let target = targets[idx];
-        if ((idx === target_order[current_target])) {
-            target.fillColor = HIGHLIGHT_COLOR;
-        } else {
-            target.fillColor = NORMAL_COLOR;
+    if (current_target != target_c) {
+        for (var idx, _pj_c = 0, _pj_a = util.range(targets.length), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+            idx = _pj_a[_pj_c];
+            let target = targets[idx];
+            if ((idx === target_order[current_target])) {
+                target.fillColor = HIGHLIGHT_COLOR;
+            } else {
+                target.fillColor = NORMAL_COLOR;
+            }
+            target.draw();
         }
-        target.draw();
-    }
-    if (mouse.mouseMoved()) {
-        let [x, y] = mouse.getPos();
-        if (is_in_target(x, y)) {
-            current_target += 1;
-            if ((current_target === target_c)) {
-                continueRoutine = false;
+        if (mouse.mouseMoved()) {
+            let [x, y] = mouse.getPos();
+            if (is_in_target(x, y)) {
+                current_target += 1;
+                if ((current_target === target_c)) {
+                    continueRoutine = false;
+                }
             }
         }
     }
@@ -647,6 +649,9 @@ function trialRoutineEnd() {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
+    }
+    for (let target of targets) {
+        target.hide();
     }
     // store data for psychoJS.experiment (ExperimentHandler)
     psychoJS.experiment.addData('mouse.x', mouse.x);

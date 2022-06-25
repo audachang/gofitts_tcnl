@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.1.4),
-    on 六月 25, 2022, at 01:56
+    on 六月 25, 2022, at 14:52
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -45,9 +45,9 @@ current_target = 0
 target_w = 0
 target_a = 0
 
-def is_in_target(w, x, y):
+def is_in_target(x, y):
     tx, ty = targets[target_order[current_target]].pos
-    return (x - tx) ** 2 + (y - ty) ** 2 <= w ** 2
+    return (x - tx) ** 2 + (y - ty) ** 2 <= target_w ** 2
 
 for a in param_a:
     for w in param_w:
@@ -381,6 +381,8 @@ for thisTrialLoop in trialLoop:
                                lineColor=LINE_COLOR)
         targets.append(target)
     
+    current_target = 0
+    target_order = []
     start = randint(0, target_c - 1)
     interval = int((target_c + 1) / 2)
     idx = 0

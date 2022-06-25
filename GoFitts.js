@@ -496,8 +496,8 @@ function trialRoutineBegin(snapshot) {
         targets.push(target);
     }
     
-    current_target = 0
-    target_order = []
+    current_target = 0;
+    target_order = [];
     let start = util.randint(0, (target_c - 1));
     const interval = Number.parseInt(((target_c + 1) / 2));
     let idx = 0;

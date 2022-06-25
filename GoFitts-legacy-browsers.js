@@ -464,6 +464,8 @@ function waitingRoutineEnd() {
 
 
 var targets;
+var current_target;
+var target_order;
 var gotValidClick;
 var _key_resp_2_allKeys;
 var trialComponents;
@@ -489,6 +491,8 @@ function trialRoutineBegin(snapshot) {
         targets.push(target);
     }
     
+    current_target = 0
+    target_order = []
     let start = util.randint(0, (target_c - 1));
     const interval = Number.parseInt(((target_c + 1) / 2));
     let idx = 0;

@@ -8,7 +8,7 @@ dir_root = Path("./example_data")
 HALF_WIDTH = 960
 HALF_HEIGHT = 540
 
-df = pd.read_csv(dir_root / 'collected.csv')
+df = pd.read_csv(dir_root / '1_GoFitts_2022-07-05_16h23.29.337.csv')
 df = df[["sequence_loop.thisN", "trial_loop.thisN", "from", "to", "mouse.x", "mouse.y", "mouse.time", "w", "a"]]
 
 df.rename(columns={"sequence_loop.thisN": "seq", "trial_loop.thisN": "trial", "mouse.x": "x", "mouse.y": "y",

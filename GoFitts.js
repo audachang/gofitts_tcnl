@@ -571,6 +571,8 @@ function trialRoutineBegin(snapshot) {
     psychoJS.experiment.addData('to', [...to_t.pos]);
     psychoJS.experiment.addData('w', target_w);
     psychoJS.experiment.addData('a', target_a);
+    
+    psychoJS.experiment.addData('sequence_loop.thisN', sequence_loop.thisN);
     // setup some python lists for storing info about the mouse
     // current position of the mouse:
     mouse.x = [];

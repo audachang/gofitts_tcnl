@@ -22,8 +22,8 @@ const NORMAL_COLOR = "#FFFFFF";
 const LINE_COLOR = "#6A6A6A";
 
 const target_c = 15;
-const param_w = [20, 40];
-const param_a = [200, 400];
+const param_w = [40];
+const param_a = [200];
 const parameters = [];
 
 for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
@@ -527,6 +527,7 @@ function sequence_startRoutineEnd() {
         thisComponent.setAutoDraw(false);
       }
     }
+    mouse.setPos([0, 0]);
     // update the trial handler
     if (psychoJS.experiment.currentLoop instanceof MultiStairHandler) {
       psychoJS.experiment.currentLoop.addResponse(key_resp_3.corr, level);
@@ -559,6 +560,17 @@ function trialRoutineBegin(snapshot) {
     frameN = -1;
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
+    if (current_target == 0) {
+        thisExp.addData('from', [0, 0]);
+    } else {
+        let from_t = targets[target_order[current_target - 1]];
+        psychoJS.experiment.addData('from', [...from_t.pos]);
+    }
+    
+    let to_t = targets[target_order[current_target]];
+    psychoJS.experiment.addData('to', [...to_t.pos]);
+    psychoJS.experiment.addData('w', target_w);
+    psychoJS.experiment.addData('a', target_a);
     // setup some python lists for storing info about the mouse
     // current position of the mouse:
     mouse.x = [];
@@ -697,9 +709,6 @@ function trialRoutineEnd() {
             target.hide();
         }
     }
-    let target = targets[target_order[current_target]];
-    psychoJS.experiment.addData('targetPosition', target.pos);
-    
     current_target += 1;
     // store data for psychoJS.experiment (ExperimentHandler)
     psychoJS.experiment.addData('mouse.x', mouse.x);

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.1.4),
-    on 七月 05, 2022, at 10:52
+    on 七月 05, 2022, at 15:55
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -380,6 +380,8 @@ for thisSequence_loop in sequence_loop:
     for thisComponent in sequence_startComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
+    # reset mouse position
+    mouse.setPos([0, 0])
     sequence_loop.addData('text_2.started', text_2.tStartRefresh)
     sequence_loop.addData('text_2.stopped', text_2.tStopRefresh)
     # check responses
@@ -415,6 +417,16 @@ for thisSequence_loop in sequence_loop:
         # ------Prepare to start Routine "trial"-------
         continueRoutine = True
         # update component parameters for each repeat
+        if current_target == 0:
+            thisExp.addData('from', [0, 0])
+        else:
+            from_t = targets[target_order[current_target - 1]]
+            thisExp.addData('from', [*from_t.pos])
+        
+        to_t = targets[target_order[current_target]]
+        thisExp.addData('to', [*to_t.pos])
+        thisExp.addData('w', target_w)
+        thisExp.addData('a', target_a)
         # setup some python lists for storing info about the mouse
         mouse.x = []
         mouse.y = []
@@ -525,10 +537,6 @@ for thisSequence_loop in sequence_loop:
         for thisComponent in trialComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        # save target position
-        target = targets[target_order[current_target]]
-        thisExp.addData('targetPosition', target.pos)
-        
         current_target += 1
         # store data for trial_loop (TrialHandler)
         trial_loop.addData('mouse.x', mouse.x)

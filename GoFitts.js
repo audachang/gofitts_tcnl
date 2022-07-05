@@ -560,7 +560,7 @@ function trialRoutineBegin(snapshot) {
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
     if (current_target == 0) {
-        thisExp.addData('from', [0, 0]);
+        psychoJS.experiment.addData('from', [0, 0]);
         mouse.setPos([0, 0]);
     } else {
         let from_t = targets[target_order[current_target - 1]];

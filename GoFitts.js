@@ -527,7 +527,6 @@ function sequence_startRoutineEnd() {
         thisComponent.setAutoDraw(false);
       }
     }
-    mouse.setPos([0, 0]);
     // update the trial handler
     if (psychoJS.experiment.currentLoop instanceof MultiStairHandler) {
       psychoJS.experiment.currentLoop.addResponse(key_resp_3.corr, level);
@@ -562,6 +561,7 @@ function trialRoutineBegin(snapshot) {
     // update component parameters for each repeat
     if (current_target == 0) {
         thisExp.addData('from', [0, 0]);
+        mouse.setPos([0, 0]);
     } else {
         let from_t = targets[target_order[current_target - 1]];
         psychoJS.experiment.addData('from', [...from_t.pos]);

@@ -689,7 +689,7 @@ function trialRoutineEnd() {
         thisComponent.setAutoDraw(false);
       }
     });
-    if (current_target == target_c) {
+    if (current_target + 1 == target_c) {
         for (let target of targets) {
             target.hide();
         }

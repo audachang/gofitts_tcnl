@@ -34,13 +34,13 @@ for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _
     }
 }
 util.shuffle(parameters);
-const n_reps = parameters.length;
+const n_seqs = parameters.length;
+const n_trials = target_c;
 
 // variables that needs to be referenced else where
 var targets = [];
 var target_order = [];
 var current_target = 0;
-var mouse_positions = [];
 
 var target_w = 0
 var target_a = 0
@@ -50,7 +50,7 @@ function is_in_target(x, y) {
     if (current_target == target_c) return false;
     var tx, ty;
     [tx, ty] = targets[target_order[current_target]].pos;
-    return ((Math.pow((x - tx), 2) + Math.pow((y - ty), 2)) <= Math.pow(target_w, 2));
+    return ((Math.pow((x - tx), 2) + Math.pow((y - ty), 2)) <= Math.pow(target_w / 2, 2));
 }
 
 // init psychoJS:
@@ -81,10 +81,10 @@ flowScheduler.add(experimentInit);
 flowScheduler.add(initRoutineBegin());
 flowScheduler.add(initRoutineEachFrame());
 flowScheduler.add(initRoutineEnd());
-const trialLoopLoopScheduler = new Scheduler(psychoJS);
-flowScheduler.add(trialLoopLoopBegin(trialLoopLoopScheduler));
-flowScheduler.add(trialLoopLoopScheduler);
-flowScheduler.add(trialLoopLoopEnd);
+const sequence_loopLoopScheduler = new Scheduler(psychoJS);
+flowScheduler.add(sequence_loopLoopBegin(sequence_loopLoopScheduler));
+flowScheduler.add(sequence_loopLoopScheduler);
+flowScheduler.add(sequence_loopLoopEnd);
 flowScheduler.add(quitPsychoJS, '', true);
 
 // quit if user presses Cancel in dialog box:
@@ -126,7 +126,7 @@ async function updateInfo() {
 var initClock;
 var text;
 var key_resp;
-var waitingClock;
+var sequence_startClock;
 var text_2;
 var key_resp_3;
 var trialClock;
@@ -150,8 +150,8 @@ async function experimentInit() {
   
   key_resp = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   
-  // Initialize components for Routine "waiting"
-  waitingClock = new util.Clock();
+  // Initialize components for Routine "sequence_start"
+  sequence_startClock = new util.Clock();
   text_2 = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_2',
@@ -160,7 +160,7 @@ async function experimentInit() {
     units: undefined, 
     pos: [0, 0], height: 40.0,  wrapWidth: undefined, ori: 0.0,
     color: new util.Color('black'),  opacity: undefined,
-    depth: 0.0 
+    depth: -1.0 
   });
   
   key_resp_3 = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
@@ -307,34 +307,35 @@ function initRoutineEnd() {
 }
 
 
-var trialLoop;
+var sequence_loop;
 var currentLoop;
-function trialLoopLoopBegin(trialLoopLoopScheduler, snapshot) {
+function sequence_loopLoopBegin(sequence_loopLoopScheduler, snapshot) {
   return async function() {
     TrialHandler.fromSnapshot(snapshot); // update internal variables (.thisN etc) of the loop
     
     // set up handler to look after randomisation of conditions etc
-    trialLoop = new TrialHandler({
+    sequence_loop = new TrialHandler({
       psychoJS: psychoJS,
-      nReps: n_reps, method: TrialHandler.Method.SEQUENTIAL,
+      nReps: n_seqs, method: TrialHandler.Method.SEQUENTIAL,
       extraInfo: expInfo, originPath: undefined,
       trialList: undefined,
-      seed: undefined, name: 'trialLoop'
+      seed: undefined, name: 'sequence_loop'
     });
-    psychoJS.experiment.addLoop(trialLoop); // add the loop to the experiment
-    currentLoop = trialLoop;  // we're now the current loop
+    psychoJS.experiment.addLoop(sequence_loop); // add the loop to the experiment
+    currentLoop = sequence_loop;  // we're now the current loop
     
     // Schedule all the trials in the trialList:
-    for (const thisTrialLoop of trialLoop) {
-      const snapshot = trialLoop.getSnapshot();
-      trialLoopLoopScheduler.add(importConditions(snapshot));
-      trialLoopLoopScheduler.add(waitingRoutineBegin(snapshot));
-      trialLoopLoopScheduler.add(waitingRoutineEachFrame());
-      trialLoopLoopScheduler.add(waitingRoutineEnd());
-      trialLoopLoopScheduler.add(trialRoutineBegin(snapshot));
-      trialLoopLoopScheduler.add(trialRoutineEachFrame());
-      trialLoopLoopScheduler.add(trialRoutineEnd());
-      trialLoopLoopScheduler.add(endLoopIteration(trialLoopLoopScheduler, snapshot));
+    for (const thisSequence_loop of sequence_loop) {
+      const snapshot = sequence_loop.getSnapshot();
+      sequence_loopLoopScheduler.add(importConditions(snapshot));
+      sequence_loopLoopScheduler.add(sequence_startRoutineBegin(snapshot));
+      sequence_loopLoopScheduler.add(sequence_startRoutineEachFrame());
+      sequence_loopLoopScheduler.add(sequence_startRoutineEnd());
+      const trial_loopLoopScheduler = new Scheduler(psychoJS);
+      sequence_loopLoopScheduler.add(trial_loopLoopBegin(trial_loopLoopScheduler, snapshot));
+      sequence_loopLoopScheduler.add(trial_loopLoopScheduler);
+      sequence_loopLoopScheduler.add(trial_loopLoopEnd);
+      sequence_loopLoopScheduler.add(endLoopIteration(sequence_loopLoopScheduler, snapshot));
     }
     
     return Scheduler.Event.NEXT;
@@ -342,34 +343,107 @@ function trialLoopLoopBegin(trialLoopLoopScheduler, snapshot) {
 }
 
 
-async function trialLoopLoopEnd() {
-  psychoJS.experiment.removeLoop(trialLoop);
+var trial_loop;
+function trial_loopLoopBegin(trial_loopLoopScheduler, snapshot) {
+  return async function() {
+    TrialHandler.fromSnapshot(snapshot); // update internal variables (.thisN etc) of the loop
+    
+    // set up handler to look after randomisation of conditions etc
+    trial_loop = new TrialHandler({
+      psychoJS: psychoJS,
+      nReps: n_trials, method: TrialHandler.Method.SEQUENTIAL,
+      extraInfo: expInfo, originPath: undefined,
+      trialList: undefined,
+      seed: undefined, name: 'trial_loop'
+    });
+    psychoJS.experiment.addLoop(trial_loop); // add the loop to the experiment
+    currentLoop = trial_loop;  // we're now the current loop
+    
+    // Schedule all the trials in the trialList:
+    for (const thisTrial_loop of trial_loop) {
+      const snapshot = trial_loop.getSnapshot();
+      trial_loopLoopScheduler.add(importConditions(snapshot));
+      trial_loopLoopScheduler.add(trialRoutineBegin(snapshot));
+      trial_loopLoopScheduler.add(trialRoutineEachFrame());
+      trial_loopLoopScheduler.add(trialRoutineEnd());
+      trial_loopLoopScheduler.add(endLoopIteration(trial_loopLoopScheduler, snapshot));
+    }
+    
+    return Scheduler.Event.NEXT;
+  }
+}
+
+
+async function trial_loopLoopEnd() {
+  psychoJS.experiment.removeLoop(trial_loop);
 
   return Scheduler.Event.NEXT;
 }
 
 
+async function sequence_loopLoopEnd() {
+  psychoJS.experiment.removeLoop(sequence_loop);
+
+  return Scheduler.Event.NEXT;
+}
+
+
+var targets;
+var current_target;
+var target_order;
 var _key_resp_3_allKeys;
-var waitingComponents;
-function waitingRoutineBegin(snapshot) {
+var sequence_startComponents;
+function sequence_startRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
     
-    //------Prepare to start Routine 'waiting'-------
+    //------Prepare to start Routine 'sequence_start'-------
     t = 0;
-    waitingClock.reset(); // clock
+    sequence_startClock.reset(); // clock
     frameN = -1;
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
+    mouse.getPos();
+    [target_a, target_w] = parameters.pop();
+    
+    // Re-initalization
+    targets = [];
+    current_target = 0;
+    target_order = [];
+    
+    // Add circle
+    for (var i, _pj_c = 0, _pj_a = util.range(target_c), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+        i = _pj_a[_pj_c];
+        let x = ((target_a / 2) * Math.cos(((2.0 * pi) * (i / target_c))));
+        let y = ((target_a / 2) * Math.sin(((2.0 * pi) * (i / target_c))));
+        let target = new visual.Polygon({"win": psychoJS.window, "size": target_w, "pos": [x, y], "fillColor": "white", "lineWidth": 2, "lineColor": LINE_COLOR, "edges": 100});
+        targets.push(target);
+    }
+    
+    // Filling target order
+    let start = util.randint(0, (target_c - 1));
+    const interval = Number.parseInt(((target_c + 1) / 2));
+    let idx = 0;
+    while ((idx < target_c)) {
+        target_order.push((start % target_c));
+        idx += 1;
+        if ((idx < target_c)) {
+            target_order.push(((start + interval) % target_c));
+            idx += 1;
+        }
+        start += 1;
+    }
+    
+    console.log(target_order);
     key_resp_3.keys = undefined;
     key_resp_3.rt = undefined;
     _key_resp_3_allKeys = [];
     // keep track of which components have finished
-    waitingComponents = [];
-    waitingComponents.push(text_2);
-    waitingComponents.push(key_resp_3);
+    sequence_startComponents = [];
+    sequence_startComponents.push(text_2);
+    sequence_startComponents.push(key_resp_3);
     
-    for (const thisComponent of waitingComponents)
+    for (const thisComponent of sequence_startComponents)
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
     return Scheduler.Event.NEXT;
@@ -377,11 +451,11 @@ function waitingRoutineBegin(snapshot) {
 }
 
 
-function waitingRoutineEachFrame() {
+function sequence_startRoutineEachFrame() {
   return async function () {
-    //------Loop for each frame of Routine 'waiting'-------
+    //------Loop for each frame of Routine 'sequence_start'-------
     // get current time
-    t = waitingClock.getTime();
+    t = sequence_startClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
     
@@ -429,7 +503,7 @@ function waitingRoutineEachFrame() {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of waitingComponents)
+    for (const thisComponent of sequence_startComponents)
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
         break;
@@ -445,10 +519,10 @@ function waitingRoutineEachFrame() {
 }
 
 
-function waitingRoutineEnd() {
+function sequence_startRoutineEnd() {
   return async function () {
-    //------Ending Routine 'waiting'-------
-    for (const thisComponent of waitingComponents) {
+    //------Ending Routine 'sequence_start'-------
+    for (const thisComponent of sequence_startComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
@@ -464,7 +538,7 @@ function waitingRoutineEnd() {
         }
     
     key_resp_3.stop();
-    // the Routine "waiting" was not non-slip safe, so reset the non-slip timer
+    // the Routine "sequence_start" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
     return Scheduler.Event.NEXT;
@@ -472,10 +546,6 @@ function waitingRoutineEnd() {
 }
 
 
-var targets;
-var current_target;
-var target_order;
-var mouse_positions;
 var gotValidClick;
 var _key_resp_2_allKeys;
 var trialComponents;
@@ -489,40 +559,6 @@ function trialRoutineBegin(snapshot) {
     frameN = -1;
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
-    mouse.getPos();
-    [target_a, target_w] = parameters.pop();
-    
-    // Re-initalization
-    targets = [];
-    current_target = 0;
-    target_order = [];
-    mouse_positions = [];
-    
-    // Add circle
-    for (var i, _pj_c = 0, _pj_a = util.range(target_c), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
-        i = _pj_a[_pj_c];
-        let x = ((target_a / 2) * Math.cos(((2.0 * pi) * (i / target_c))));
-        let y = ((target_a / 2) * Math.sin(((2.0 * pi) * (i / target_c))));
-        let target = new visual.Polygon({"win": psychoJS.window, "size": target_w, "pos": [x, y], "fillColor": "white", "lineWidth": 2, "lineColor": LINE_COLOR, "edges": 100});
-        targets.push(target);
-    }
-    
-    // Filling target order
-    let start = util.randint(0, (target_c - 1));
-    const interval = Number.parseInt(((target_c + 1) / 2));
-    let idx = 0;
-    while ((idx < target_c)) {
-        target_order.push((start % target_c));
-        idx += 1;
-        if ((idx < target_c)) {
-            target_order.push(((start + interval) % target_c));
-            idx += 1;
-        }
-        start += 1;
-    }
-    
-    console.log(target_order);
-    console.log(targets);
     // setup some python lists for storing info about the mouse
     // current position of the mouse:
     mouse.x = [];
@@ -572,12 +608,8 @@ function trialRoutineEachFrame() {
         }
         if (mouse.mouseMoved()) {
             let [x, y] = mouse.getPos();
-            // mouse_positions.push([x, y]);
             if (is_in_target(x, y)) {
-                current_target += 1;
-                if ((current_target === target_c)) {
-                    continueRoutine = false;
-                }
+                continueRoutine = false;
             }
         }
     }
@@ -660,11 +692,15 @@ function trialRoutineEnd() {
         thisComponent.setAutoDraw(false);
       }
     }
-    for (let target of targets) {
-        target.hide();
+    if (current_target == target_c) {
+        for (let target of targets) {
+            target.hide();
+        }
     }
+    let target = targets[target_order[current_target]];
+    psychoJS.experiment.addData('targetPosition', target.pos);
     
-    // psychoJS.experiment.addData('mouse_positions', mouse_positions);
+    current_target += 1;
     // store data for psychoJS.experiment (ExperimentHandler)
     psychoJS.experiment.addData('mouse.x', mouse.x);
     psychoJS.experiment.addData('mouse.y', mouse.y);
@@ -728,6 +764,8 @@ async function quitPsychoJS(message, isCompleted) {
   if (psychoJS.experiment.isEntryEmpty()) {
     psychoJS.experiment.nextEntry();
   }
+  
+  
   
   
   psychoJS.window.close();

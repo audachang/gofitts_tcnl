@@ -16,6 +16,7 @@ let expName = 'GoFitts';  // from the Builder filename that created this script
 let expInfo = {'participant': '', 'session': '001'};
 
 // Start code blocks for 'Before Experiment'
+// Experiment Settings
 const HIGHLIGHT_COLOR = "#CCCCFF";
 const NORMAL_COLOR = "#FFFFFF";
 const LINE_COLOR = "#6A6A6A";
@@ -25,9 +26,21 @@ const param_w = [20, 40];
 const param_a = [200, 400];
 const parameters = [];
 
+for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+    a = _pj_a[_pj_c];
+    for (var w, _pj_f = 0, _pj_d = param_w, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
+        w = _pj_d[_pj_f];
+        parameters.push([a, w]);
+    }
+}
+util.shuffle(parameters);
+const n_reps = parameters.length;
+
+// variables that needs to be referenced else where
 var targets = [];
 var target_order = [];
 var current_target = 0;
+var mouse_positions = [];
 
 var target_w = 0
 var target_a = 0
@@ -39,16 +52,6 @@ function is_in_target(x, y) {
     [tx, ty] = targets[target_order[current_target]].pos;
     return ((Math.pow((x - tx), 2) + Math.pow((y - ty), 2)) <= Math.pow(target_w, 2));
 }
-
-for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
-    a = _pj_a[_pj_c];
-    for (var w, _pj_f = 0, _pj_d = param_w, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
-        w = _pj_d[_pj_f];
-        parameters.push([a, w]);
-    }
-}
-util.shuffle(parameters);
-const n_reps = parameters.length;
 
 // init psychoJS:
 const psychoJS = new PsychoJS({
@@ -472,6 +475,7 @@ function waitingRoutineEnd() {
 var targets;
 var current_target;
 var target_order;
+var mouse_positions;
 var gotValidClick;
 var _key_resp_2_allKeys;
 var trialComponents;
@@ -488,7 +492,13 @@ function trialRoutineBegin(snapshot) {
     mouse.getPos();
     [target_a, target_w] = parameters.pop();
     
+    // Re-initalization
     targets = [];
+    current_target = 0;
+    target_order = [];
+    mouse_positions = [];
+    
+    // Add circle
     for (var i, _pj_c = 0, _pj_a = util.range(target_c), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         i = _pj_a[_pj_c];
         let x = ((target_a / 2) * Math.cos(((2.0 * pi) * (i / target_c))));
@@ -497,8 +507,7 @@ function trialRoutineBegin(snapshot) {
         targets.push(target);
     }
     
-    current_target = 0;
-    target_order = [];
+    // Filling target order
     let start = util.randint(0, (target_c - 1));
     const interval = Number.parseInt(((target_c + 1) / 2));
     let idx = 0;
@@ -523,6 +532,7 @@ function trialRoutineBegin(snapshot) {
     mouse.rightButton = [];
     mouse.time = [];
     gotValidClick = false; // until a click is received
+    mouse.mouseClock.reset();
     key_resp_2.keys = undefined;
     key_resp_2.rt = undefined;
     _key_resp_2_allKeys = [];
@@ -562,6 +572,7 @@ function trialRoutineEachFrame() {
         }
         if (mouse.mouseMoved()) {
             let [x, y] = mouse.getPos();
+            // mouse_positions.push([x, y]);
             if (is_in_target(x, y)) {
                 current_target += 1;
                 if ((current_target === target_c)) {
@@ -578,7 +589,6 @@ function trialRoutineEachFrame() {
       mouse.frameNStart = frameN;  // exact frame index
       
       mouse.status = PsychoJS.Status.STARTED;
-      mouse.mouseClock.reset();
       prevButtonState = mouse.getPressed();  // if button is down already this ISN'T a new click
       }
     if (mouse.status === PsychoJS.Status.STARTED) {  // only update if started and not finished!
@@ -653,6 +663,8 @@ function trialRoutineEnd() {
     for (let target of targets) {
         target.hide();
     }
+    
+    // psychoJS.experiment.addData('mouse_positions', mouse_positions);
     // store data for psychoJS.experiment (ExperimentHandler)
     psychoJS.experiment.addData('mouse.x', mouse.x);
     psychoJS.experiment.addData('mouse.y', mouse.y);

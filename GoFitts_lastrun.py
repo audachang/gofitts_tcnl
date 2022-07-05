@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.1.4),
-    on 六月 25, 2022, at 17:10
+    on 七月 05, 2022, at 10:10
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -41,6 +41,7 @@ parameters = []
 targets = []
 target_order = []
 current_target = 0
+mouse_positions = []
 
 target_w = 0
 target_a = 0
@@ -371,6 +372,10 @@ for thisTrialLoop in trialLoop:
     target_a, target_w = parameters.pop()
     
     targets = []
+    current_target = 0
+    target_order = []
+    mouse_positions = []
+    
     for i in range(target_c):
         x = target_a / 2 * cos(2.0 * pi * (i / target_c))
         y = target_a / 2 * sin(2.0 * pi * (i / target_c))
@@ -382,8 +387,6 @@ for thisTrialLoop in trialLoop:
                                lineColor=LINE_COLOR)
         targets.append(target)
     
-    current_target = 0
-    target_order = []
     start = randint(0, target_c - 1)
     interval = int((target_c + 1) / 2)
     idx = 0
@@ -405,6 +408,7 @@ for thisTrialLoop in trialLoop:
     mouse.rightButton = []
     mouse.time = []
     gotValidClick = False  # until a click is received
+    mouse.mouseClock.reset()
     key_resp_2.keys = []
     key_resp_2.rt = []
     _key_resp_2_allKeys = []
@@ -442,6 +446,7 @@ for thisTrialLoop in trialLoop:
         
             if mouse.mouseMoved():
                 x, y = mouse.getPos()
+                # mouse_positions.append((x, y))
                 if is_in_target(x, y):
                     current_target += 1
                     if current_target == target_c:
@@ -454,7 +459,6 @@ for thisTrialLoop in trialLoop:
             mouse.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(mouse, 'tStartRefresh')  # time at next scr refresh
             mouse.status = STARTED
-            mouse.mouseClock.reset()
             prevButtonState = mouse.getPressed()  # if button is down already this ISN'T a new click
         if mouse.status == STARTED:  # only update if started and not finished!
             x, y = mouse.getPos()
@@ -509,6 +513,7 @@ for thisTrialLoop in trialLoop:
     for thisComponent in trialComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
+    # thisExp.addData('mouse_positions', mouse_positions)
     # store data for trialLoop (TrialHandler)
     trialLoop.addData('mouse.x', mouse.x)
     trialLoop.addData('mouse.y', mouse.y)
@@ -516,8 +521,6 @@ for thisTrialLoop in trialLoop:
     trialLoop.addData('mouse.midButton', mouse.midButton)
     trialLoop.addData('mouse.rightButton', mouse.rightButton)
     trialLoop.addData('mouse.time', mouse.time)
-    trialLoop.addData('mouse.started', mouse.tStart)
-    trialLoop.addData('mouse.stopped', mouse.tStop)
     # check responses
     if key_resp_2.keys in ['', [], None]:  # No response was made
         key_resp_2.keys = None

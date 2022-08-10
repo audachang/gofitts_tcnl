@@ -126,7 +126,7 @@ async function experimentInit() {
     text: '歡迎參加慣用手動作協調作業，本實驗一共有9個段落\n\n本實驗希望您盡快移動滑鼠至紫色圓圈，請做的又快又正確\n\n若無問題請按下Enter鍵開始\n',
     font: 'Open Sans',
     units: undefined, 
-    pos: [(- 300), 0], height: 40.0,  wrapWidth: undefined, ori: 0.0,
+    pos: [0, 0], height: 40.0,  wrapWidth: undefined, ori: 0.0,
     color: new util.Color('black'),  opacity: undefined,
     depth: 0.0 
   });

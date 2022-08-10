@@ -16,13 +16,6 @@ const LINE_COLOR = "#6A6A6A";
 const target_c = 15;
 const parameters = [[100, 80], [170, 77.8], [250, 71.5], [325, 60.5], [400, 48], [475, 40.5], [550, 32.3], [625, 25.5], [700, 20]];
 
-for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
-    a = _pj_a[_pj_c];
-    for (var w, _pj_f = 0, _pj_d = param_w, _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
-        w = _pj_d[_pj_f];
-        parameters.push([a, w]);
-    }
-}
 util.shuffle(parameters);
 const n_seqs = parameters.length;
 const n_trials = target_c;

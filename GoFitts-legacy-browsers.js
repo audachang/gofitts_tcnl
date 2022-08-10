@@ -14,9 +14,7 @@ const NORMAL_COLOR = "#FFFFFF";
 const LINE_COLOR = "#6A6A6A";
 
 const target_c = 15;
-const param_w = [40];
-const param_a = [200];
-const parameters = [];
+const parameters = [[100, 80], [170, 77.8], [250, 71.5], [325, 60.5], [400, 48], [475, 40.5], [550, 32.3], [625, 25.5], [700, 20]];
 
 for (var a, _pj_c = 0, _pj_a = param_a, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
     a = _pj_a[_pj_c];
@@ -132,10 +130,10 @@ async function experimentInit() {
   text = new visual.TextStim({
     win: psychoJS.window,
     name: 'text',
-    text: 'This is the instruction scene.\n\nWork in progress.\n\nPress Enter to continue.',
+    text: '歡迎參加慣用手動作協調作業，本實驗一共有9個段落\n\n本實驗希望您盡快移動滑鼠至紫色圓圈，請做的又快又正確\n\n若無問題請按下Enter鍵開始\n',
     font: 'Open Sans',
     units: undefined, 
-    pos: [0, 0], height: 40.0,  wrapWidth: undefined, ori: 0.0,
+    pos: [(- 300), 0], height: 40.0,  wrapWidth: undefined, ori: 0.0,
     color: new util.Color('black'),  opacity: undefined,
     depth: 0.0 
   });
@@ -147,7 +145,7 @@ async function experimentInit() {
   text_2 = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_2',
-    text: 'Press Enter to continue',
+    text: '按下Enter鍵開始',
     font: 'Open Sans',
     units: undefined, 
     pos: [0, 0], height: 40.0,  wrapWidth: undefined, ori: 0.0,

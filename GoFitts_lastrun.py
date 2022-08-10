@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.1.4),
-    on 七月 05, 2022, at 15:55
+    on 八月 10, 2022, at 17:09
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -32,13 +32,7 @@ NORMAL_COLOR = "#FFFFFF"
 LINE_COLOR = "#6A6A6A"
 
 target_c = 15
-param_w = [40]
-param_a = [200]
-parameters = []
-
-for a in param_a:
-    for w in param_w:
-        parameters.append((a, w))
+parameters = [(100, 80), (170, 77.8), (250, 71.5), (325, 60.5), (400, 48), (475, 40.5), (550, 32.3), (625, 25.5), (700, 20)]
         
 shuffle(parameters)
 n_seqs = len(parameters)
@@ -123,9 +117,9 @@ defaultKeyboard = keyboard.Keyboard(backend='iohub')
 # Initialize components for Routine "init"
 initClock = core.Clock()
 text = visual.TextStim(win=win, name='text',
-    text='This is the instruction scene.\n\nWork in progress.\n\nPress Enter to continue.',
+    text='歡迎參加慣用手動作協調作業，本實驗一共有9個段落\n\n本實驗希望您盡快移動滑鼠至紫色圓圈，請做的又快又正確\n\n若無問題請按下Enter鍵開始\n',
     font='Open Sans',
-    pos=(0, 0), height=40.0, wrapWidth=None, ori=0.0, 
+    pos=(-300, 0), height=40.0, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
@@ -134,7 +128,7 @@ key_resp = keyboard.Keyboard()
 # Initialize components for Routine "sequence_start"
 sequence_startClock = core.Clock()
 text_2 = visual.TextStim(win=win, name='text_2',
-    text='Press Enter to continue',
+    text='按下Enter鍵開始',
     font='Open Sans',
     pos=(0, 0), height=40.0, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -380,8 +374,6 @@ for thisSequence_loop in sequence_loop:
     for thisComponent in sequence_startComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
-    # reset mouse position
-    mouse.setPos([0, 0])
     sequence_loop.addData('text_2.started', text_2.tStartRefresh)
     sequence_loop.addData('text_2.stopped', text_2.tStopRefresh)
     # check responses
@@ -419,6 +411,8 @@ for thisSequence_loop in sequence_loop:
         # update component parameters for each repeat
         if current_target == 0:
             thisExp.addData('from', [0, 0])
+            # reset mouse position
+            mouse.setPos([0, 0])
         else:
             from_t = targets[target_order[current_target - 1]]
             thisExp.addData('from', [*from_t.pos])
@@ -427,6 +421,7 @@ for thisSequence_loop in sequence_loop:
         thisExp.addData('to', [*to_t.pos])
         thisExp.addData('w', target_w)
         thisExp.addData('a', target_a)
+        
         # setup some python lists for storing info about the mouse
         mouse.x = []
         mouse.y = []

@@ -5,7 +5,7 @@
 
 // store info about the experiment session:
 let expName = 'GoFitts';  // from the Builder filename that created this script
-let expInfo = {'participant': '', 'session': '001'};
+let expInfo = {'受試者ID': ''};
 
 // Start code blocks for 'Before Experiment'
 // Experiment Settings

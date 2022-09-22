@@ -98,7 +98,7 @@ async function updateInfo() {
   expInfo['psychopyVersion'] = '2022.1.4';
   expInfo['OS'] = window.navigator.platform;
 
-  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["participant"]}_${expName}_${expInfo["date"]}`);
+  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["\u53d7\u8a66\u8005ID"]}_${expName}_${expInfo["date"]}`);
 
   // store frame rate of monitor if we can measure it successfully
   expInfo['frameRate'] = psychoJS.window.getActualFrameRate();

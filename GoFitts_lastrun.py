@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.1.4),
-    on 八月 10, 2022, at 17:09
+    on 九月 22, 2022, at 17:29
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -58,8 +58,7 @@ os.chdir(_thisDir)
 psychopyVersion = '2022.1.4'
 expName = 'GoFitts'  # from the Builder filename that created this script
 expInfo = {
-    'participant': '',
-    'session': '001',
+    '受試者ID': '',
 }
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
 if dlg.OK == False:
@@ -69,7 +68,7 @@ expInfo['expName'] = expName
 expInfo['psychopyVersion'] = psychopyVersion
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
+filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['受試者ID'], expName, expInfo['date'])
 
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
@@ -119,7 +118,7 @@ initClock = core.Clock()
 text = visual.TextStim(win=win, name='text',
     text='歡迎參加慣用手動作協調作業，本實驗一共有9個段落\n\n本實驗希望您盡快移動滑鼠至紫色圓圈，請做的又快又正確\n\n若無問題請按下Enter鍵開始\n',
     font='Open Sans',
-    pos=(-300, 0), height=40.0, wrapWidth=None, ori=0.0, 
+    pos=(0, 0), height=40.0, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);

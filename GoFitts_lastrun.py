@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.1.4),
-    on 九月 22, 2022, at 17:29
+    on 九月 23, 2022, at 11:08
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -116,7 +116,7 @@ defaultKeyboard = keyboard.Keyboard(backend='iohub')
 # Initialize components for Routine "init"
 initClock = core.Clock()
 text = visual.TextStim(win=win, name='text',
-    text='歡迎參加慣用手動作協調作業，本實驗一共有9個段落\n\n本實驗希望您盡快移動滑鼠至紫色圓圈，請做的又快又正確\n\n若無問題請按下Enter鍵開始\n',
+    text='歡迎參加慣用手動作協調作業！\n\n實驗進行時請您快速又準確地移動滑鼠游標至紫色圓圈中\n\n開始進行作業前，先確認您能順利地操作滑鼠\n\n請按任意鍵繼續\n',
     font='Open Sans',
     pos=(0, 0), height=40.0, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -557,6 +557,7 @@ for thisSequence_loop in sequence_loop:
     
 # completed n_seqs repeats of 'sequence_loop'
 
+message = "實驗已結束，感謝您的參與"
 
 # Flip one final time so any remaining win.callOnFlip() 
 # and win.timeOnFlip() tasks get executed before quitting

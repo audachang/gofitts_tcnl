@@ -13,8 +13,8 @@ const HIGHLIGHT_COLOR = "#CCCCFF";
 const NORMAL_COLOR = "#FFFFFF";
 const LINE_COLOR = "#6A6A6A";
 
-let target_c = 15;
-let parameters = [[100, 80], [170, 77.8], [250, 71.5], [325, 60.5], [400, 48], [475, 40.5], [550, 32.3], [625, 25.5], [700, 20]];
+var target_c = 15;
+var parameters = [[100, 80], [170, 77.8], [250, 71.5], [325, 60.5], [400, 48], [475, 40.5], [550, 32.3], [625, 25.5], [700, 20]];
 
 const n_seqs = parameters.length;
 const n_trials = target_c;

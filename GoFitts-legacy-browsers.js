@@ -158,7 +158,7 @@ async function experimentInit() {
   text_4 = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_4',
-    text: '請移動滑鼠游標，分別到上下左右四個圓圈範圍內\n',
+    text: '請移動滑鼠游標，\n分別到上下左右四個圓圈範圍內\n',
     font: 'Open Sans',
     units: undefined, 
     pos: [0, 0], height: 40.0,  wrapWidth: undefined, ori: 0.0,

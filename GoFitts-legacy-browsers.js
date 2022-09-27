@@ -171,7 +171,7 @@ async function experimentInit() {
   text_5 = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_5',
-    text: '您剛才能夠順利操作滑鼠點擊四個目標圓圈嗎？\n如果不行的話，請調整桌面上滑鼠的操作空間，以及您使用滑鼠的姿勢，讓您可以順利地操作。\n\n若您已經可以順利操作，請按 Enter 鍵繼續\n若您需要調整滑鼠及姿勢，請按空白鍵重試',
+    text: '您剛才能夠順利操作滑鼠點擊四個目標圓圈嗎？\n如果不行的話，請調整桌面上滑鼠的操作空間，以及您使用滑鼠的姿勢，讓您可以順利地操作。\n\n若您已經可以順利操作，請按Enter鍵繼續\n若您需要調整滑鼠及姿勢，請按空白鍵重試',
     font: 'Open Sans',
     units: undefined, 
     pos: [0, 0], height: 40.0,  wrapWidth: undefined, ori: 0.0,

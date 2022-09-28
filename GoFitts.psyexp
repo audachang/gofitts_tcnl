@@ -7,7 +7,7 @@
     <Param val="auto" valType="str" updates="None" name="Data file delimiter"/>
     <Param val="u'data/%s_%s_%s' % (expInfo['受試者ID'], expName, expInfo['date'])" valType="code" updates="None" name="Data filename"/>
     <Param val="True" valType="bool" updates="None" name="Enable Escape"/>
-    <Param val="{'受試者ID': ''}" valType="code" updates="None" name="Experiment info"/>
+    <Param val="{'受試者編號': ''}" valType="code" updates="None" name="Experiment info"/>
     <Param val="True" valType="bool" updates="None" name="Force stereo"/>
     <Param val="True" valType="bool" updates="None" name="Full-screen window"/>
     <Param val="" valType="str" updates="None" name="HTML path"/>
@@ -371,7 +371,7 @@
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="您剛才能夠順利操作滑鼠點擊四個目標圓圈嗎？&amp;#10;如果不行的話，請調整桌面上滑鼠的操作空間，以及您使用滑鼠的姿勢，讓您可以順利地操作。&amp;#10;&amp;#10;若您已經可以順利操作，請按Enter鍵繼續&amp;#10;若您需要調整滑鼠及姿勢，請按空白鍵重試" valType="str" updates="constant" name="text"/>
+        <Param val="您剛才能夠順利操作滑鼠點擊四個目標圓圈嗎？&amp;#10;如果不行的話，請調整桌面上滑鼠的操作空間，&amp;#10;以及您使用滑鼠的姿勢，讓您可以順利地操作。&amp;#10;&amp;#10;若您已經可以順利操作，請按Enter鍵繼續&amp;#10;若您需要調整滑鼠及姿勢，請按空白鍵重試" valType="str" updates="constant" name="text"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>

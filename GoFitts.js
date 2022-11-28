@@ -14,7 +14,7 @@ const { round } = util;
 // store info about the experiment session:
 let expName = 'GoFitts';  // from the Builder filename that created this script
 let expInfo = {
-    '身分證字號': '',
+    'cid': '',
 };
 
 // Start code blocks for 'Before Experiment'
@@ -114,7 +114,7 @@ async function updateInfo() {
   expInfo['psychopyVersion'] = '2022.2.4';
   expInfo['OS'] = window.navigator.platform;
 
-  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["\u8eab\u5206\u8b49\u5b57\u865f"]}_${expName}_${expInfo["date"]}`);
+  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["cid"]}_${expName}_${expInfo["date"]}`);
 
   // store frame rate of monitor if we can measure it successfully
   expInfo['frameRate'] = psychoJS.window.getActualFrameRate();

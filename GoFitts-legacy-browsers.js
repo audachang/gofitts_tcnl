@@ -6,7 +6,7 @@
 // store info about the experiment session:
 let expName = 'GoFitts';  // from the Builder filename that created this script
 let expInfo = {
-    'cid': '',
+    '身分證字號': '',
 };
 
 // Start code blocks for 'Before Experiment'
@@ -38,6 +38,9 @@ function is_in_target(x, y) {
     [tx, ty] = targets[target_order[current_target]].pos;
     return ((Math.pow((x - tx), 2) + Math.pow((y - ty), 2)) <= Math.pow(target_w / 2, 2));
 }
+
+// manually add expInfo
+util.addInfoFromUrl(expInfo);
 
 // init psychoJS:
 const psychoJS = new PsychoJS({
@@ -106,7 +109,7 @@ async function updateInfo() {
   expInfo['psychopyVersion'] = '2022.2.4';
   expInfo['OS'] = window.navigator.platform;
 
-  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["cid"]}_${expName}_${expInfo["date"]}`);
+  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["\u8eab\u5206\u8b49\u5b57\u865f"]}_${expName}_${expInfo["date"]}`);
 
   // store frame rate of monitor if we can measure it successfully
   expInfo['frameRate'] = psychoJS.window.getActualFrameRate();

@@ -50,6 +50,7 @@ function is_in_target(x, y) {
 // manually add expInfo
 util.addInfoFromUrl(expInfo);
 
+var timeStr = (new Date()).toISOString();
 // init psychoJS:
 const psychoJS = new PsychoJS({
   debug: true
@@ -117,7 +118,7 @@ async function updateInfo() {
   expInfo['psychopyVersion'] = '2022.2.4';
   expInfo['OS'] = window.navigator.platform;
 
-  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["\u8eab\u5206\u8b49\u5b57\u865f"]}_${expName}_${expInfo["date"]}`);
+  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["\u8eab\u5206\u8b49\u5b57\u865f"]}_${expName}_${timeStr}`);
 
   // store frame rate of monitor if we can measure it successfully
   expInfo['frameRate'] = psychoJS.window.getActualFrameRate();

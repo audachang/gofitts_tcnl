@@ -1,6 +1,7 @@
 import pandas as pd
 import argparse
 import ast
+import os
 
 from pathlib import Path
 
@@ -8,9 +9,9 @@ HALF_WIDTH = 960
 HALF_HEIGHT = 540
 
 
-def convert_file(path: Path):
+def convert_file(path: Path, do_csv: bool = False):
     df = pd.read_csv(path)
-    participant = df["受試者編號"].iloc[0]
+    participant = df["身分證字號"].iloc[0]
     df = df[["sequence_loop.thisN", "trial_loop.thisN", "from", "to", "mouse.x", "mouse.y", "mouse.time", "w", "a"]]
 
     df.rename(columns={
@@ -45,11 +46,19 @@ def convert_file(path: Path):
                 file.write(
                     f"FittsTask,{participant},C00,S00,G00,2D,DT0,B00,{row['seq']},{row['a']},{row['w']},{row['trial']},{from_to},{d}=,{','.join(row[d])}\n")
 
+    if do_csv:
+        os.system(F"java -jar GoFitts_modified.jar -p FittsTask-{participant}.sd3")
+        print("Converted to csv!")
+
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-f', type=str, help='File to convert')
-    parser.add_argument("-dir", type=str, default="./", help="Convert directory")
+    parser.add_argument("-f", "--file", type=str, help='File to convert')
+    parser.add_argument("-d", "--dir", type=str, help="Convert directory")
+
+    has_jar = os.path.isfile("GoFitts_modified.jar")
+    if not has_jar:
+        print("GoFitts_modified.jar not found! You will not be able to convert to csv.")
 
     args = parser.parse_args()
     if args.dir:
@@ -58,15 +67,15 @@ def main():
             raise FileNotFoundError(f"Directory {args.dir} does not exist!")
         else:
             for path in directory.glob("*.csv"):
-                convert_file(path)
-                print("Converted:", path)
+                print("Converting:", path.name)
+                convert_file(path, has_jar)
     elif args.file:
         file = Path(args.file)
         if not file.exists():
             raise FileNotFoundError(f"File {args.file} does not exist!")
         else:
-            convert_file(file)
-            print("Converted:", file)
+            print("Converting:", file.name)
+            convert_file(file, has_jar)
 
 
 if __name__ == "__main__":

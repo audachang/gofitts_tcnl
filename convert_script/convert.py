@@ -11,6 +11,8 @@ HALF_HEIGHT = 540
 
 def convert_file(path: Path, do_csv: bool = False):
     df = pd.read_csv(path)
+    if "身分證字號" not in df.columns:
+        raise ValueError("身分證字號 not found in csv!")
     participant = df["身分證字號"].iloc[0]
     df = df[["sequence_loop.thisN", "trial_loop.thisN", "from", "to", "mouse.x", "mouse.y", "mouse.time", "w", "a"]]
 
@@ -33,7 +35,9 @@ def convert_file(path: Path, do_csv: bool = False):
     df["y"] = df["y"].apply(lambda str_arr: [str(int(y + HALF_HEIGHT)) for y in ast.literal_eval(str_arr)])
     df["t"] = df["t"].apply(lambda str_arr: [str(int(sec * 1000)) for sec in ast.literal_eval(str_arr)])
 
-    with open(path.parent / f"FittsTask-{participant}.sd3", "w") as file:
+    output_csv_path = Path(path.parent / f"FittsTask-{participant}.sd3")
+
+    with open(output_csv_path, "w") as file:
         file.write("TRACE DATA\n")
         file.write(
             "App,Participant,Condition,Session,Group,TaskType,SelectionMethod,Block,Sequence,A,W,Trial,from_x,from_y,to_x,to_y,{t_x_y}\n")
@@ -47,7 +51,7 @@ def convert_file(path: Path, do_csv: bool = False):
                     f"FittsTask,{participant},C00,S00,G00,2D,DT0,B00,{row['seq']},{row['a']},{row['w']},{row['trial']},{from_to},{d}=,{','.join(row[d])}\n")
 
     if do_csv:
-        os.system(F"java -jar GoFitts_modified.jar -p FittsTask-{participant}.sd3")
+        os.system(F"java -jar GoFitts_modified.jar -p {output_csv_path}")
         print("Converted to csv!")
 
 
@@ -68,7 +72,11 @@ def main():
         else:
             for path in directory.glob("*.csv"):
                 print("Converting:", path.name)
-                convert_file(path, has_jar)
+                try:
+                    convert_file(path, has_jar)
+                except ValueError as e:
+                    print(e)
+                    print("Skipping:", path.name)
     elif args.file:
         file = Path(args.file)
         if not file.exists():

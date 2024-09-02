@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import argparse
 import ast
@@ -10,14 +11,58 @@ HALF_WIDTH = 960
 HALF_HEIGHT = 540
 
 
+def make_summary(participant: str, path: Path, seq_summary_path: Path):
+    df = pd.read_csv(path)
+    seq_df = pd.read_csv(seq_summary_path)
+    
+    seq_cnt = len(seq_df)
+    
+    leave_time = []
+    point_time = []
+    throughput = []
+    
+    for i in range(seq_cnt):
+        leave_time.append(df[df["sequence_loop.thisN"] == i]["leave_time"].dropna().mean() * 1000)
+        point_time.append(seq_df[seq_df["Sequence"] == i]["PT"].item())
+        throughput.append(seq_df[seq_df["Sequence"] == i]["TP"].item())
+    
+    # calculate slope
+    def slope(y):
+        x = np.arange(len(y))
+        A = np.vstack([x, np.ones(len(x))]).T
+        m, _ = np.linalg.lstsq(A, y, rcond=None)[0]
+        return m
+        
+    header = ["ID"]
+    for name in ["LeaveTime", "PointTime", "Throughput"]:
+        for i in range(seq_cnt):
+            header.append(f"GOFITTS_BEH_ID{i}_{name}")
+        header.append(f"GOFITTS_BEH_SLOPE_{name}")
+    
+    data = [participant]
+    for array in [leave_time, point_time, throughput]:
+        for i in range(seq_cnt):
+            data.append(array[i]);
+        data.append(slope(array));
+        
+    
+    with open(Path(seq_summary_path.parent, f"GoFitts-{participant}-summary.csv"), "w") as file:
+        file.write(",".join(header))
+        file.write('\n')
+        file.write(",".join([str(x) for x in data]))
+        file.write('\n')
+    
+    print("Generated final summary!")
+
+
 def parse_with_jar(path: Path):
     os.system(F"java -jar GoFitts_modified.jar -p {path}")
-    print("Converted to csv!")
+    print("Generated trial and sequence summary!")
 
 
 def convert_file(path: Path):
     df = pd.read_csv(path)
-    if ID_COL_NAME" not in df.columns:
+    if ID_COL_NAME not in df.columns:
         raise ValueError("ID column not found in csv!")
     participant = df[ID_COL_NAME].iloc[0]
     df = df[["sequence_loop.thisN", "trial_loop.thisN", "from", "to", "mouse.x", "mouse.y", "mouse.time", "w", "a"]]
@@ -41,7 +86,7 @@ def convert_file(path: Path):
     df["y"] = df["y"].apply(lambda str_arr: [str(int(y + HALF_HEIGHT)) for y in ast.literal_eval(str_arr)])
     df["t"] = df["t"].apply(lambda str_arr: [str(int(sec * 1000)) for sec in ast.literal_eval(str_arr)])
 
-    output_csv_path = Path(path.parent / f"FittsTask-{participant}.sd3")
+    output_csv_path = Path(path.parent / f"GoFitts-{participant}.sd3")
 
     with open(output_csv_path, "w") as file:
         file.write("TRACE DATA\n")
@@ -56,7 +101,7 @@ def convert_file(path: Path):
                 file.write(
                     f"FittsTask,{participant},C00,S00,G00,2D,DT0,B00,{row['seq']},{row['a']},{row['w']},{row['trial']},{from_to},{d}=,{','.join(row[d])}\n")
     
-    return output_csv_path
+    return participant, output_csv_path
 
 
 def main():
@@ -87,9 +132,12 @@ def main():
             raise FileNotFoundError(f"File {args.file} does not exist!")
         else:
             print("Converting:", file.name)
-            output_path = convert_file(file)
+            participant, output_path = convert_file(file)
             if has_jar:
                 parse_with_jar(output_path)
+                seq_summary_path = Path(file.parent, f"{output_path.stem}-sequence-summary.csv")
+                make_summary(participant, file, seq_summary_path)
+                
 
 
 if __name__ == "__main__":

@@ -5,15 +5,21 @@ import os
 
 from pathlib import Path
 
+ID_COL_NAME = "身分證字號"
 HALF_WIDTH = 960
 HALF_HEIGHT = 540
 
 
-def convert_file(path: Path, do_csv: bool = False):
+def parse_with_jar(path: Path):
+    os.system(F"java -jar GoFitts_modified.jar -p {path}")
+    print("Converted to csv!")
+
+
+def convert_file(path: Path):
     df = pd.read_csv(path)
-    if "身分證字號" not in df.columns:
-        raise ValueError("身分證字號 not found in csv!")
-    participant = df["身分證字號"].iloc[0]
+    if ID_COL_NAME" not in df.columns:
+        raise ValueError("ID column not found in csv!")
+    participant = df[ID_COL_NAME].iloc[0]
     df = df[["sequence_loop.thisN", "trial_loop.thisN", "from", "to", "mouse.x", "mouse.y", "mouse.time", "w", "a"]]
 
     df.rename(columns={
@@ -49,10 +55,8 @@ def convert_file(path: Path, do_csv: bool = False):
             for d in ["t", "x", "y"]:
                 file.write(
                     f"FittsTask,{participant},C00,S00,G00,2D,DT0,B00,{row['seq']},{row['a']},{row['w']},{row['trial']},{from_to},{d}=,{','.join(row[d])}\n")
-
-    if do_csv:
-        os.system(F"java -jar GoFitts_modified.jar -p {output_csv_path}")
-        print("Converted to csv!")
+    
+    return output_csv_path
 
 
 def main():
@@ -83,7 +87,9 @@ def main():
             raise FileNotFoundError(f"File {args.file} does not exist!")
         else:
             print("Converting:", file.name)
-            convert_file(file, has_jar)
+            output_path = convert_file(file)
+            if has_jar:
+                parse_with_jar(output_path)
 
 
 if __name__ == "__main__":

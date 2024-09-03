@@ -23,12 +23,12 @@ const TEST_MOUSE_PARAMETERS = [[700, 40]];
 const DWELL_TIME_SECS = 0.5;
 
 const TEST_TARGET_COUNT = 15;
-const TEST_IDS = [3.75, 4.32];
+const TEST_IDS = [6.32, 6.32];
 
 const PROD_TARGET_COUNT = 15;
 const PROD_IDS = [3.75, 4.32, 4.75, 5.32, 5.75, 6.32];
 
-const TEST_MODE = false;
+const TEST_MODE = true;
 
 // input: id, output: [a, w]
 
@@ -36,7 +36,7 @@ var w;
 var a;
 function generate_parameters(id) {
     const coef = (Math.pow(2, id) - 1) / 2;
-    const w_ub = Math.floor(1080 / (1 + coef));
+    const w_ub = Math.floor(1080 / (2 + coef));
     w = util.randint(20, w_ub);
     a = coef * w;
     return [a, w, id];
@@ -306,7 +306,7 @@ async function experimentInit() {
   text = new visual.TextStim({
     win: psychoJS.window,
     name: 'text',
-    text: '接下來我們要開始進行作業，一共有九個段落\n\n作業進行時請您快速又準確地移動滑鼠游標至紫色圓圈中\n\n移動至紫色圓圈後無需按滑鼠左鍵\n\n請按 Enter 鍵繼續\n',
+    text: '接下來我們要開始進行作業，一共有六個段落\n\n作業進行時請您快速又準確地移動滑鼠游標至紫色圓圈中\n\n移動至紫色圓圈後無需按滑鼠左鍵\n\n請按 Enter 鍵繼續\n',
     font: 'Open Sans',
     units: undefined, 
     pos: [0, 0], height: 40.0,  wrapWidth: undefined, ori: 0.0,
@@ -489,7 +489,7 @@ function retry_testingLoopBegin(retry_testingLoopScheduler, snapshot) {
     // set up handler to look after randomisation of conditions etc
     retry_testing = new TrialHandler({
       psychoJS: psychoJS,
-      nReps: retry, method: TrialHandler.Method.RANDOM,
+      nReps: 1000, method: TrialHandler.Method.RANDOM,
       extraInfo: expInfo, originPath: undefined,
       trialList: undefined,
       seed: undefined, name: 'retry_testing'
@@ -702,7 +702,7 @@ function test_mouseRoutineBegin(snapshot) {
     parameters = TEST_MOUSE_PARAMETERS;
     
     mouse.getPos();
-    [target_a, target_w, target_id] = parameters.pop();
+    [target_a, target_w, target_id] = parameters[0];
     
     // Re-initalization
     targets = [];

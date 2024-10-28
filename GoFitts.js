@@ -36,7 +36,7 @@ const TEST_IDS = [6.32, 6.32];
 const PROD_TARGET_COUNT = 15;
 const PROD_IDS = [3.75, 4.32, 4.75, 5.32, 5.75, 6.32];
 
-const TEST_MODE = false;
+const TEST_MODE = true;
 
 // input: id, output: [a, w]
 
@@ -44,7 +44,7 @@ var w;
 var a;
 function generate_parameters(id) {
     const coef = (Math.pow(2, id) - 1) / 2;
-    const w_ub = Math.floor(1080 / (2 + coef));
+    const w_ub = Math.floor(960 / (2 + coef));
     w = util.randint(20, w_ub);
     a = coef * w;
     return [a, w, id];
@@ -1103,6 +1103,11 @@ function sequence_startRoutineBegin(snapshot) {
     
     mouse.getPos();
     [target_a, target_w, target_id] = parameters.pop();
+    if (TEST_MODE) {
+        console.log("target_a:", target_a);
+        console.log("target_w:", target_w);
+        console.log("target_id:", target_id);
+    }
     
     // Re-initalization
     targets = [];
@@ -1132,8 +1137,6 @@ function sequence_startRoutineBegin(snapshot) {
         }
         start += 1;
     }
-    
-    console.log(target_order);
     seq_start_confirm.keys = undefined;
     seq_start_confirm.rt = undefined;
     _seq_start_confirm_allKeys = [];

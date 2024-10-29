@@ -36,7 +36,7 @@ const TEST_IDS = [6.32, 6.32];
 const PROD_TARGET_COUNT = 15;
 const PROD_IDS = [3.75, 4.32, 4.75, 5.32, 5.75, 6.32];
 
-const TEST_MODE = true;
+const TEST_MODE = false;
 
 // input: id, output: [a, w]
 

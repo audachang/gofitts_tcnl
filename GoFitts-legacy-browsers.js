@@ -21,6 +21,7 @@ const TEST_MOUSE_TARGET_COUNT = 4;
 const TEST_MOUSE_PARAMETERS = [[700, 40]];
 
 const DWELL_TIME_SECS = 0.5;
+const TARGET_INTERVAL_SECS = 0.2;
 
 const TEST_TARGET_COUNT = 15;
 const TEST_IDS = [6.32, 6.32];
@@ -90,6 +91,7 @@ var timeStr = (new Date()).toISOString();
 // The target that cursor currently is in, -1 = no target
 var cursor_in_target = -1;
 var enter_timestamp = 0;
+var target_done_timestamp = 0;
 
 // on leave
 
@@ -1309,6 +1311,8 @@ function trialRoutineBegin(snapshot) {
 }
 
 
+var target_done_timestamp;
+var cur_target_circle;
 var prevButtonState;
 var _mouseButtons;
 var _mouseXYs;
@@ -1325,8 +1329,19 @@ function trialRoutineEachFrame() {
         if (enter_timestamp > 0) {
             const cur_timestamp = mouse.mouseClock.getTime();
             if (cur_timestamp - enter_timestamp > DWELL_TIME_SECS) {
+                enter_timestamp = 0
+                target_done_timestamp = mouse.mouseClock.getTime();
+                cur_target_circle = targets[target_order[current_target]]
+                cur_target_circle.fillColor = NORMAL_COLOR;
+            }
+        }
+    
+        if (target_done_timestamp > 0) {
+            const cur_timestamp = mouse.mouseClock.getTime();
+            if (cur_timestamp - target_done_timestamp > TARGET_INTERVAL_SECS) {
                 continueRoutine = false;
-                console.log("next target")
+                target_done_timestamp = 0;
+                console.log("next target");
             }
         }
     

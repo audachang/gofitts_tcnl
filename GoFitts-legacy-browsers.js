@@ -6,7 +6,7 @@
 // store info about the experiment session:
 let expName = 'GoFitts';  // from the Builder filename that created this script
 let expInfo = {
-    '身分證字號': '',
+    '指定代號': '',
 };
 
 // Start code blocks for 'Before Experiment'

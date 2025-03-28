@@ -8,7 +8,7 @@
     <Param val="u'data/%s_%s_%s' % (expInfo['身分證字號'], expName, timeStr)" valType="code" updates="None" name="Data filename"/>
     <Param val="True" valType="bool" updates="None" name="Enable Escape"/>
     <Param val="" valType="str" updates="None" name="End Message"/>
-    <Param val="{'身分證字號': ''}" valType="code" updates="None" name="Experiment info"/>
+    <Param val="{'指定代號': ''}" valType="code" updates="None" name="Experiment info"/>
     <Param val="True" valType="bool" updates="None" name="Force stereo"/>
     <Param val="True" valType="bool" updates="None" name="Full-screen window"/>
     <Param val="" valType="str" updates="None" name="HTML path"/>

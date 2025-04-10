@@ -231,7 +231,7 @@ async function updateInfo() {
   
 
   
-  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["\u8eab\u5206\u8b49\u5b57\u865f"]}_${expName}_${timeStr}`);
+  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["\u6307\u5b9a\u4ee3\u865f"]}_${expName}_${timeStr}`);
   psychoJS.experiment.field_separator = '\t';
 
 

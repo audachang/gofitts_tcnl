@@ -1,8 +1,8 @@
-﻿/**************** 
+/**************** 
  * Gofitts *
  ****************/
 
-import { core, data, sound, util, visual, hardware } from './lib/psychojs-2023.2.3.js';
+import { core, data, sound, util, visual, hardware } from './lib/psychojs-2025.1.1.js';
 const { PsychoJS } = core;
 const { TrialHandler, MultiStairHandler } = data;
 const { Scheduler } = util;
@@ -14,7 +14,7 @@ const { round } = util;
 // store info about the experiment session:
 let expName = 'GoFitts';  // from the Builder filename that created this script
 let expInfo = {
-    '指定代號': '',
+    'id': '',
 };
 
 // Start code blocks for 'Before Experiment'
@@ -215,7 +215,7 @@ async function updateInfo() {
   currentLoop = psychoJS.experiment;  // right now there are no loops
   expInfo['date'] = util.MonotonicClock.getDateStr();  // add a simple timestamp
   expInfo['expName'] = expName;
-  expInfo['psychopyVersion'] = '2023.2.3';
+  expInfo['psychopyVersion'] = '2025.1.1';
   expInfo['OS'] = window.navigator.platform;
 
 
@@ -231,7 +231,7 @@ async function updateInfo() {
   
 
   
-  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["\u6307\u5b9a\u4ee3\u865f"]}_${expName}_${timeStr}`);
+  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["id"]}_${expName}_${timeStr}`);
   psychoJS.experiment.field_separator = '\t';
 
 
@@ -1547,7 +1547,7 @@ async function quitPsychoJS(message, isCompleted) {
   
   
   // Run 'End Experiment' code from code_2
-  message = "實驗已結束，感謝您的參與"
+  message = "實驗已結束，感謝您的參與！"
   
   
   
